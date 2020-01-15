@@ -14,6 +14,7 @@ import Register from './components/Register';
 const About = () => {
   return (<h1>THIS IS THE ABOUT PAGE</h1>);
 }
+// Home Component
 const Home = () => {
   return (<h1>THIS IS THE HOME PAGE</h1>);
 }
