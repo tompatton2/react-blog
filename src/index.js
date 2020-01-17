@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Welcome from './components/Welcome';
@@ -19,10 +19,12 @@ const Home = () => {
   return (<h1>THIS IS THE HOME PAGE</h1>);
 }
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Navbar />
+const Main = withRouter(({ location }) => {
+  return (
     <div>
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <Navbar />
+      )}
       <Route exact path='/' component={Welcome}/>
       <Route path='/about' component={About} />
       <Route path='/home' component={Home}/>
@@ -30,8 +32,16 @@ ReactDOM.render(
       <Route path='/login' component={Login}/>
       <Route path='/article/:slug' component={SingleArticle}/>
       <Route path='/register' component={Register}/>
+      {location.pathname !== "/login" && location.pathname !== "/register" && (
+        <Footer />
+      )}
     </div>
-    <Footer />
+  );
+})
+
+ReactDOM.render(
+  <BrowserRouter>
+   <Main />
   </BrowserRouter>
   , document.getElementById('root')
 )
